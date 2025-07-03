@@ -1,0 +1,60 @@
+{
+  "name": "Cuadrante PWA - Guardia Civil",
+  "short_name": "Cuadrante GC",
+  "description": "Aplicación para gestionar cuadrantes de servicio de la Guardia Civil",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2d5016",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "es",
+  "icons": [
+    {
+      "src": "assets/src/iconoGC.ico.ico",
+      "sizes": "32x32",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "assets/src/EscudoGc.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "assets/src/BannerGC.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    }
+  ],
+  "categories": ["productivity", "utilities"],
+  "shortcuts": [
+    {
+      "name": "Ver Calendario",
+      "short_name": "Calendario",
+      "description": "Abrir el calendario de turnos",
+      "url": "/?section=calendar",
+      "icons": [
+        {
+          "src": "assets/src/iconoGC.ico.ico",
+          "sizes": "32x32"
+        }
+      ]
+    },
+    {
+      "name": "Estadísticas",
+      "short_name": "Stats",
+      "description": "Ver estadísticas de turnos",
+      "url": "/?section=stats",
+      "icons": [
+        {
+          "src": "assets/src/iconoGC.ico.ico",
+          "sizes": "32x32"
+        }
+      ]
+    }
+  ]
+} 

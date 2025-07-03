@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Test - Turnos PWA</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ccc; }
+        .shift-btn { margin: 5px; padding: 10px; cursor: pointer; border: none; border-radius: 5px; color: white; }
+        .shift-btn[data-shift="M"] { background: #2d5016; }
+        .shift-btn[data-shift="T"] { background: #FF9800; }
+        .shift-btn[data-shift="N"] { background: #2196F3; }
+        .shift-btn[data-shift="MN"] { background: linear-gradient(45deg, #2d5016 50%, #2196F3 50%); }
+        .shift-btn[data-shift="SN"] { background: #8b5cf6; }
+        .shift-btn[data-shift="AP"] { background: #4a7c3a; }
+        .shift-btn[data-shift="ASC"] { background: #10b981; }
+        .shift-btn[data-shift="DAS"] { background: #06b6d4; }
+        .shift-btn[data-shift="DF"] { background: #a855f7; }
+        .shift-btn[data-shift="IND"] { background: #ef4444; }
+        .shift-btn[data-shift="B"] { background: #6b7280; }
+        .shift-btn[data-shift="V"] { background: #10b981; }
+        .shift-btn[data-shift="D"] { background: #9E9E9E; }
+        #result { margin-top: 10px; padding: 10px; background: #f0f0f0; }
+    </style>
+</head>
+<body>
+    <h1>🧪 Test - Turnos Guardia Civil PWA</h1>
+    
+    <div class="test-section">
+        <h3>✅ Verificación de Turnos</h3>
+        <p>Si ves todos estos botones con colores, el CSS funciona:</p>
+        
+        <h4>Turnos de Trabajo</h4>
+        <button class="shift-btn" data-shift="M" onclick="testShift('M')">M - Mañana</button>
+        <button class="shift-btn" data-shift="T" onclick="testShift('T')">T - Tarde</button>
+        <button class="shift-btn" data-shift="N" onclick="testShift('N')">N - Noche</button>
+        <button class="shift-btn" data-shift="MN" onclick="testShift('MN')">MN - Doble</button>
+        
+        <h4>Situaciones Especiales</h4>
+        <button class="shift-btn" data-shift="SN" onclick="testShift('SN')">SN - Saliente</button>
+        <button class="shift-btn" data-shift="AP" onclick="testShift('AP')">AP - Asunto Propio</button>
+        <button class="shift-btn" data-shift="ASC" onclick="testShift('ASC')">ASC - Asociativo</button>
+        <button class="shift-btn" data-shift="DAS" onclick="testShift('DAS')">DAS - Desc. Sing.</button>
+        <button class="shift-btn" data-shift="DF" onclick="testShift('DF')">DF - Desc. Festivo</button>
+        <button class="shift-btn" data-shift="IND" onclick="testShift('IND')">IND - Indispuesto</button>
+        <button class="shift-btn" data-shift="B" onclick="testShift('B')">B - Baja</button>
+        <button class="shift-btn" data-shift="V" onclick="testShift('V')">V - Vacaciones</button>
+        
+        <h4>Descanso</h4>
+        <button class="shift-btn" data-shift="D" onclick="testShift('D')">D - Descanso</button>
+        
+        <div id="result">Haz clic en un turno para probarlo...</div>
+    </div>
+    
+    <div class="test-section">
+        <h3>🔗 Enlaces</h3>
+        <p><a href="index.html">← Volver a la PWA principal</a></p>
+        <p><a href="http://localhost:8000">🔄 PWA Principal</a></p>
+    </div>
+
+    <script>
+        function testShift(shift) {
+            const labels = {
+                'M': 'Mañana (8h)',
+                'T': 'Tarde (8h)', 
+                'N': 'Noche (8h)',
+                'MN': 'Mañana y Noche (16h)',
+                'SN': 'Saliente Nocturno (0h)',
+                'AP': 'Asunto Propio (7.5h)',
+                'ASC': 'Día Asociativo (7.5h)',
+                'DAS': 'Descanso Singularizado (7.5h)',
+                'DF': 'Descanso Festivo (7.5h)',
+                'IND': 'Indispuesto (7.5h)',
+                'B': 'Baja (7.5h)',
+                'V': 'Vacaciones (7.5h)',
+                'D': 'Descanso (0h)'
+            };
+            
+            document.getElementById('result').innerHTML = `
+                <strong>✅ Turno seleccionado:</strong> ${shift} - ${labels[shift]}<br>
+                <em>¡JavaScript funciona correctamente!</em>
+            `;
+            
+            console.log('Turno seleccionado:', shift, '-', labels[shift]);
+        }
+        
+        console.log('🧪 Página de test cargada correctamente');
+        console.log('📊 Turnos disponibles:', Object.keys({
+            'M': 'Mañana', 'T': 'Tarde', 'N': 'Noche', 'MN': 'Doble',
+            'SN': 'Saliente', 'AP': 'Asunto Propio', 'ASC': 'Asociativo',
+            'DAS': 'Desc. Sing.', 'DF': 'Desc. Festivo', 'IND': 'Indispuesto',
+            'B': 'Baja', 'V': 'Vacaciones', 'D': 'Descanso'
+        }));
+    </script>
+</body>
+</html> 

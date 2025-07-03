@@ -1,0 +1,27 @@
+{
+  "name": "appcuadrantemovil",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@capacitor/android": "^7.4.0",
+    "@capacitor/cli": "^7.4.0",
+    "@capacitor/core": "^7.4.0",
+    "@capacitor/ios": "^7.4.0"
+  },
+  "dependencies": {
+    "@capacitor/device": "^7.0.1",
+    "@capacitor/filesystem": "^7.1.1",
+    "@capacitor/keyboard": "^7.0.1",
+    "@capacitor/local-notifications": "^7.0.1",
+    "@capacitor/push-notifications": "^7.0.1",
+    "@capacitor/splash-screen": "^7.0.1",
+    "@capacitor/status-bar": "^7.0.1"
+  }
+}

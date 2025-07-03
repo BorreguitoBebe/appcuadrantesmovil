@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📅 Demo - Selección de Días en Cuadrante</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 2rem;
+            background: linear-gradient(135deg, #2d5016 0%, #4CAF50 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .explanation {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        .demo-calendar {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 1.5rem;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            margin: 1rem 0;
+        }
+        .demo-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .demo-day.natural {
+            background: rgba(255, 255, 255, 0.8);
+            color: #333;
+        }
+        .demo-day.invasion {
+            background: rgba(255, 255, 255, 0.6);
+            color: #666;
+            border: 2px solid #4CAF50;
+        }
+        .demo-day.out-of-period {
+            background: rgba(255, 255, 255, 0.2);
+            color: #999;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+        .demo-day.natural:hover {
+            background: rgba(76, 175, 80, 0.8);
+            color: white;
+            transform: scale(1.05);
+        }
+        .demo-day.invasion:hover {
+            background: rgba(76, 175, 80, 0.8);
+            color: white;
+            transform: scale(1.05);
+        }
+        .demo-day.out-of-period:hover {
+            transform: none;
+        }
+        .legend {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+        .rules {
+            list-style: none;
+            padding: 0;
+        }
+        .rules li {
+            margin: 1rem 0;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            border-left: 4px solid #4CAF50;
+        }
+        .back-btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            font-weight: 600;
+            margin: 2rem auto;
+            text-align: center;
+        }
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📅 Selección de Días en el Cuadrante</h1>
+        
+        <div class="explanation">
+            <h2>🎯 Problema Resuelto</h2>
+            <p><strong>Antes:</strong> No se podían seleccionar días de "invasión" (días de meses anteriores/siguientes que forman parte del período del cuadrante).</p>
+            <p><strong>Ahora:</strong> Se pueden seleccionar todos los días que están dentro del período calculado del cuadrante, incluyendo los días de invasión hasta 3 días.</p>
+        </div>
+
+        <div class="grid">
+            <div class="demo-calendar">
+                <h3>📋 Ejemplo: Enero 2024</h3>
+                <p>Período calculado: 29 Dic 2023 - 4 Feb 2024</p>
+                
+                <div class="demo-grid">
+                    <!-- Diciembre (invasión permitida) -->
+                    <div class="demo-day invasion">29</div>
+                    <div class="demo-day invasion">30</div>
+                    <div class="demo-day invasion">31</div>
+                    
+                    <!-- Enero (mes natural) -->
+                    <div class="demo-day natural">1</div>
+                    <div class="demo-day natural">2</div>
+                    <div class="demo-day natural">3</div>
+                    <div class="demo-day natural">4</div>
+                    <div class="demo-day natural">5</div>
+                    <div class="demo-day natural">6</div>
+                    <div class="demo-day natural">7</div>
+                    <div class="demo-day natural">8</div>
+                    <div class="demo-day natural">9</div>
+                    <div class="demo-day natural">10</div>
+                    <div class="demo-day natural">11</div>
+                    <div class="demo-day natural">12</div>
+                    <div class="demo-day natural">13</div>
+                    <div class="demo-day natural">14</div>
+                    <div class="demo-day natural">15</div>
+                    <div class="demo-day natural">16</div>
+                    <div class="demo-day natural">17</div>
+                    <div class="demo-day natural">18</div>
+                    <div class="demo-day natural">19</div>
+                    <div class="demo-day natural">20</div>
+                    <div class="demo-day natural">21</div>
+                    <div class="demo-day natural">22</div>
+                    <div class="demo-day natural">23</div>
+                    <div class="demo-day natural">24</div>
+                    <div class="demo-day natural">25</div>
+                    <div class="demo-day natural">26</div>
+                    <div class="demo-day natural">27</div>
+                    <div class="demo-day natural">28</div>
+                    <div class="demo-day natural">29</div>
+                    <div class="demo-day natural">30</div>
+                    <div class="demo-day natural">31</div>
+                    
+                    <!-- Febrero (invasión permitida) -->
+                    <div class="demo-day invasion">1</div>
+                    <div class="demo-day invasion">2</div>
+                    <div class="demo-day invasion">3</div>
+                    <div class="demo-day invasion">4</div>
+                    
+                    <!-- Días fuera del período -->
+                    <div class="demo-day out-of-period">5</div>
+                    <div class="demo-day out-of-period">6</div>
+                    <div class="demo-day out-of-period">7</div>
+                </div>
+
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: rgba(255, 255, 255, 0.8);"></div>
+                        <span>Mes Natural (Seleccionable)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: rgba(255, 255, 255, 0.6); border: 2px solid #4CAF50;"></div>
+                        <span>Invasión (Seleccionable)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: rgba(255, 255, 255, 0.2); opacity: 0.5;"></div>
+                        <span>Fuera del Período (No seleccionable)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="demo-calendar">
+                <h3>⚖️ Reglas Implementadas</h3>
+                <ul class="rules">
+                    <li>
+                        <strong>✅ Días Seleccionables:</strong><br>
+                        • Todos los días del mes natural<br>
+                        • Días de invasión (máx. 3 días de meses adyacentes)<br>
+                        • Días dentro del período calculado
+                    </li>
+                    <li>
+                        <strong>❌ Días NO Seleccionables:</strong><br>
+                        • Días fuera del período del cuadrante<br>
+                        • Días con invasión superior a 3 días
+                    </li>
+                    <li>
+                        <strong>🔧 Cálculo Automático:</strong><br>
+                        • Período basado en semanas completas (L-D)<br>
+                        • Ajuste automático si invasión > 3 días<br>
+                        • Visualización clara del período real
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="explanation">
+            <h2>🚀 Cómo Usar la Selección Mejorada</h2>
+            <p><strong>1. Modo Normal:</strong> Haz clic en cualquier día seleccionable para aplicar el turno actual.</p>
+            <p><strong>2. Modo Múltiple:</strong> Activa el switch "Selección Múltiple" y haz clic en varios días para seleccionarlos.</p>
+            <p><strong>3. Selección por Rango:</strong> En modo múltiple, usa "Selección por Rango" para seleccionar entre dos fechas.</p>
+            <p><strong>4. Días de Invasión:</strong> Ahora puedes seleccionar días de diciembre/febrero que estén dentro del período de enero.</p>
+        </div>
+
+        <div style="text-align: center;">
+            <a href="/" class="back-btn">🔙 Volver a la PWA</a>
+        </div>
+    </div>
+
+    <script>
+        // Demo interactiva
+        document.querySelectorAll('.demo-day:not(.out-of-period)').forEach(day => {
+            day.addEventListener('click', () => {
+                alert(`✅ Día ${day.textContent} seleccionado correctamente!\n\nEste día está dentro del período del cuadrante y se puede asignar turnos.`);
+            });
+        });
+
+        document.querySelectorAll('.demo-day.out-of-period').forEach(day => {
+            day.addEventListener('click', () => {
+                alert(`❌ Día ${day.textContent} no seleccionable.\n\nEste día está fuera del período calculado del cuadrante.`);
+            });
+        });
+
+        console.log('📅 Demo de selección de días cargada');
+        console.log('✅ Problema de selección de días de invasión resuelto');
+    </script>
+</body>
+</html> 

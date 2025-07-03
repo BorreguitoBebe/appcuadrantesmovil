@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#2d5016">
+    <title>Cuadrante PWA - Guardia Civil</title>
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="assets/src/iconoGC.ico.ico" type="image/x-icon">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/styles.css?v=11">
+    <link rel="stylesheet" href="css/mobile.css?v=1">
+    
+    <!-- PWA install prompt -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Cuadrante GC">
+    <link rel="apple-touch-icon" href="assets/src/iconoGC.ico.ico">
+</head>
+<body>
+    <div id="app" class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <img src="assets/src/EscudoGc.svg" alt="Escudo Guardia Civil" class="logo">
+                <h1>Cuadrante de Servicio</h1>
+                <div class="header-actions">
+                    <button id="installBtn" class="install-btn" style="display: none;">
+                        <i class="icon-download"></i> Instalar App
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="main-nav">
+            <button class="nav-btn active" data-section="calendar">
+                <i class="icon-calendar"></i> Calendario
+            </button>
+            <button class="nav-btn" data-section="stats">
+                <i class="icon-stats"></i> Estadísticas
+            </button>
+            <button class="nav-btn" data-section="appointments">
+                <i class="icon-bell"></i> Citas
+            </button>
+            <button class="nav-btn" data-section="export">
+                <i class="icon-export"></i> Exportar
+            </button>
+            <button class="nav-btn" data-section="config">
+                <i class="icon-settings"></i> Configuración
+            </button>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Calendar Section -->
+            <section id="calendar-section" class="content-section active">
+                <div class="section-header">
+                    <h2>Cuadrante del Mes</h2>
+                    <div class="month-selector">
+                        <button id="prevMonth" class="month-btn">‹</button>
+                        <span id="currentMonth">Enero 2024</span>
+                        <button id="nextMonth" class="month-btn">›</button>
+                    </div>
+                </div>
+                
+                <div class="calendar-container">
+                    <div id="calendar" class="calendar-grid">
+                        <!-- Calendar will be generated here -->
+                    </div>
+                </div>
+
+                <!-- Control Panel -->
+                <div class="control-panel">
+                    <div class="panel-section">
+                        <h3>🎯 Selección de Turno</h3>
+                        <div class="current-selection">
+                            <div class="turno-seleccionado">
+                                <span class="turno-codigo codigo-M">M</span>
+                                <span class="turno-nombre">Mañana</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-section">
+                        <h3>⚙️ Modo de Trabajo</h3>
+                        <div class="modo-trabajo">
+                            <label class="modo-switch">
+                                <input type="checkbox" id="modo-multiple">
+                                <span class="slider"></span>
+                                <span class="modo-label">Selección Múltiple</span>
+                            </label>
+                        </div>
+                        <div id="info-modo" class="info-modo" style="display: none;">
+                            <p>💡 Haz clic en varios días para seleccionarlos y luego aplica el turno.</p>
+                        </div>
+                    </div>
+
+                    <div class="panel-section">
+                        <h3>⚡ Acciones Rápidas</h3>
+                        <div class="acciones-rapidas">
+                            <button id="btn-semana-completa" class="action-btn">
+                                <span class="icon">📅</span>
+                                <span>Semana Completa</span>
+                            </button>
+                            <button id="btn-limpiar-semana" class="action-btn">
+                                <span class="icon">🧹</span>
+                                <span>Limpiar Semana</span>
+                            </button>
+                            <button id="btn-seleccionar-rango" class="action-btn">
+                                <span class="icon">📏</span>
+                                <span>Selección por Rango</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="panel-section modo-multiple-controls" style="display: none;">
+                        <h3>🎛️ Control de Selección</h3>
+                        <div class="selection-controls">
+                            <button id="btn-aplicar-seleccion" class="apply-btn">
+                                <span class="icon">✅</span>
+                                <span>Aplicar a Seleccionados</span>
+                            </button>
+                            <button id="btn-limpiar-seleccion" class="clear-btn">
+                                <span class="icon">❌</span>
+                                <span>Limpiar Selección</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Shift Selector -->
+                <div class="shift-selector">
+                    <h3>📋 Tipos de Turno</h3>
+                    
+                    <div class="shift-category">
+                        <h4>🌅 Turnos de Trabajo (8h)</h4>
+                        <div class="shift-buttons">
+                            <button class="shift-btn turno-item selected" data-shift="M" data-tipo="M">
+                                <span class="shift-code">M</span>
+                                <span class="shift-name">Mañana (6:00-14:00)</span>
+                                <span class="shift-hours">8h</span>
+                            </button>
+                            <button class="shift-btn turno-item" data-shift="T" data-tipo="T">
+                                <span class="shift-code">T</span>
+                                <span class="shift-name">Tarde (14:00-22:00)</span>
+                                <span class="shift-hours">8h</span>
+                            </button>
+                            <button class="shift-btn turno-item" data-shift="N" data-tipo="N">
+                                <span class="shift-code">N</span>
+                                <span class="shift-name">Noche (22:00-6:00)</span>
+                                <span class="shift-hours">8h</span>
+                            </button>
+                            <button class="shift-btn turno-item" data-shift="MN" data-tipo="MN">
+                                <span class="shift-code">MN</span>
+                                <span class="shift-name">Mañana y Noche</span>
+                                <span class="shift-hours">16h</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="shift-category">
+                        <h4>⚡ Situaciones Especiales (7.5h)</h4>
+                        <div class="shift-buttons">
+                            <button class="shift-btn turno-item" data-shift="SN" data-tipo="SN">
+                                <span class="shift-code">SN</span>
+                                <span class="shift-name">Saliente Nocturno</span>
+                                <span class="shift-hours">0h</span>
+                            </button>
+                            <button class="shift-btn turno-item" data-shift="AP" data-tipo="AP">
+                                <span class="shift-code">AP</span>
+                                <span class="shift-name">Asunto Propio</span>
+                                <span class="shift-hours">7.5h</span>
+                            </button>
+                            <button class="shift-btn turno-item" data-shift="ASC" data-tipo="ASC">
+                                <span class="shift-code">ASC</span>
+                                <span class="shift-name">Día Asociativo</span>
+                                <span class="shift-hours">7.5h</span>
+                            </button>
+                            <button class="shift-btn turno-item" data-shift="DAS" data-tipo="DAS">
+                                <span class="shift-code">DAS</span>
+                                <span class="shift-name">Descanso Singularizado</span>
+                                <span class="shift-hours">7.5h</span>
+                            </button>
+                            <button class="shift-btn turno-item" data-shift="DF" data-tipo="DF">
+                                <span class="shift-code">DF</span>
+                                <span class="shift-name">Descanso Festivo</span>
+                                <span class="shift-hours">7.5h</span>
+                            </button>
+                            <button class="shift-btn turno-item" data-shift="IND" data-tipo="IND">
+                                <span class="shift-code">IND</span>
+                                <span class="shift-name">Indispuesto</span>
+                                <span class="shift-hours">7.5h</span>
+                            </button>
+                            <button class="shift-btn turno-item" data-shift="B" data-tipo="B">
+                                <span class="shift-code">B</span>
+                                <span class="shift-name">Baja</span>
+                                <span class="shift-hours">7.5h</span>
+                            </button>
+                            <button class="shift-btn turno-item" data-shift="V" data-tipo="V">
+                                <span class="shift-code">V</span>
+                                <span class="shift-name">Vacaciones</span>
+                                <span class="shift-hours">7.5h</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="shift-category">
+                        <h4>🏠 Descanso (0h)</h4>
+                        <div class="shift-buttons">
+                            <button class="shift-btn turno-item" data-shift="D" data-tipo="D">
+                                <span class="shift-code">D</span>
+                                <span class="shift-name">Descanso</span>
+                                <span class="shift-hours">0h</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Statistics Section -->
+            <section id="stats-section" class="content-section">
+                <div class="section-header">
+                    <h2>Estadísticas</h2>
+                </div>
+                <div id="stats-content" class="stats-container">
+                    <!-- Statistics will be generated here -->
+                </div>
+            </section>
+
+            <!-- Appointments Section -->
+            <section id="appointments-section" class="content-section">
+                <div class="section-header">
+                    <h2>Citas y Recordatorios</h2>
+                    <button id="addAppointmentBtn" class="add-btn">
+                        <i class="icon-plus"></i> Nueva Cita
+                    </button>
+                </div>
+                
+                <div class="appointments-container">
+                    <div class="appointments-filters">
+                        <button class="filter-btn active" data-filter="all">Todas</button>
+                        <button class="filter-btn" data-filter="upcoming">Próximas</button>
+                        <button class="filter-btn" data-filter="today">Hoy</button>
+                        <button class="filter-btn" data-filter="past">Pasadas</button>
+                    </div>
+                    
+                    <div id="appointments-list" class="appointments-list">
+                        <!-- Appointments will be generated here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Export Section -->
+            <section id="export-section" class="content-section">
+                <div class="section-header">
+                    <h2>Exportar Cuadrante</h2>
+                </div>
+                <div class="export-options">
+                    <button id="exportPDF" class="export-btn">
+                        <i class="icon-pdf"></i> Exportar a PDF
+                    </button>
+                    <button id="exportExcel" class="export-btn">
+                        <i class="icon-excel"></i> Exportar a Excel
+                    </button>
+                </div>
+            </section>
+
+            <!-- Configuration Section -->
+            <section id="config-section" class="content-section">
+                <div class="section-header">
+                    <h2>Configuración</h2>
+                </div>
+                <div class="config-form">
+                    <div class="form-group">
+                        <label for="officerName">Nombre del Agente:</label>
+                        <input type="text" id="officerName" placeholder="Introduce tu nombre">
+                    </div>
+                    <div class="form-group">
+                        <label for="unit">Unidad:</label>
+                        <input type="text" id="unit" placeholder="Introduce tu unidad">
+                    </div>
+                    <div class="form-group">
+                        <label>Colores de Turnos:</label>
+                        <div class="color-settings">
+                            <div class="color-option">
+                                <label>Mañana:</label>
+                                <input type="color" id="colorMañana" value="#4CAF50">
+                            </div>
+                            <div class="color-option">
+                                <label>Tarde:</label>
+                                <input type="color" id="colorTarde" value="#FF9800">
+                            </div>
+                            <div class="color-option">
+                                <label>Noche:</label>
+                                <input type="color" id="colorNoche" value="#2196F3">
+                            </div>
+                        </div>
+                    </div>
+                    <button id="saveConfig" class="save-btn">Guardar Configuración</button>
+                </div>
+                
+                <!-- Backup Section -->
+                <div class="config-backup-section">
+                    <h3>🔄 Gestión de Backups y Datos</h3>
+                    
+                    <div class="backup-info-card">
+                        <div id="backup-stats" class="backup-stats">
+                            <!-- Backup stats will be populated here -->
+                        </div>
+                    </div>
+                    
+                    <div class="backup-actions">
+                        <button onclick="window.exportarBackup()" class="backup-btn export-btn">
+                            📥 Exportar Backup Completo
+                        </button>
+                        <label for="import-backup" class="backup-btn import-btn">
+                            📤 Importar Backup
+                            <input type="file" id="import-backup" accept=".json" style="display: none;">
+                        </label>
+                        <button onclick="window.verBackups()" class="backup-btn info-btn">
+                            📊 Ver Historial de Backups
+                        </button>
+                    </div>
+                    
+                    <div class="mobile-warning" id="mobile-warning">
+                        ⚠️ <strong>Importante en dispositivos móviles:</strong><br>
+                        Los datos se almacenan localmente y pueden perderse si:
+                        <ul>
+                            <li>Limpias el caché del navegador</li>
+                            <li>El sistema libera espacio automáticamente</li>
+                            <li>Usas modo incógnito/privado</li>
+                        </ul>
+                        <strong>Recomendación:</strong> Exporta backups regularmente.
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading" class="loading-overlay" style="display: none;">
+        <div class="spinner"></div>
+        <p>Cargando...</p>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/simple-pdf.js?v=5"></script>
+    <script src="js/app.js?v=6"></script>
+    <script src="js/calendar.js?v=12"></script>
+    <script src="js/stats.js?v=12"></script>
+    <script src="js/appointments.js?v=3"></script>
+    <script src="js/backup.js?v=2"></script>
+    <script src="js/pwa.js?v=5"></script>
+</body>
+</html> 

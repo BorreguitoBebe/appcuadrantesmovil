@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test de Reglas - Cuadrante PWA</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 2rem;
+            background: #f8f9fa;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        h1 { color: #2d5016; border-bottom: 3px solid #2d5016; padding-bottom: 0.5rem; }
+        h2 { color: #1565c0; margin-top: 2rem; }
+        .rule { 
+            background: #f0fdf4; 
+            padding: 1rem; 
+            margin: 1rem 0; 
+            border-left: 4px solid #22c55e; 
+            border-radius: 4px;
+        }
+        .validation { 
+            background: #fef3c7; 
+            padding: 1rem; 
+            margin: 1rem 0; 
+            border-left: 4px solid #f59e0b; 
+            border-radius: 4px;
+        }
+        .warning { 
+            background: #fef2f2; 
+            padding: 1rem; 
+            margin: 1rem 0; 
+            border-left: 4px solid #ef4444; 
+            border-radius: 4px;
+        }
+        .code {
+            background: #f1f5f9;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+        }
+        ul { margin: 0.5rem 0; }
+        li { margin: 0.25rem 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✅ Reglas del Proyecto Original Implementadas</h1>
+        
+        <p><strong>Estado:</strong> Todas las reglas del proyecto original appCuadrante han sido implementadas exitosamente en la PWA.</p>
+
+        <h2>🗓️ 1. Cálculo de Períodos de Semanas Completas</h2>
+        <div class="rule">
+            <strong>Función:</strong> <span class="code">calcularPeriodoCuadrante()</span><br>
+            <strong>Regla:</strong> El calendario ahora muestra períodos basados en semanas completas (lunes a domingo) con reglas de invasión limitada.<br>
+            <strong>Límite:</strong> Máximo 3 días de invasión de meses anteriores/siguientes.
+            <ul>
+                <li>Si invade > 3 días del mes anterior → empieza en primer lunes del mes natural</li>
+                <li>Si invade > 3 días del mes siguiente → termina en último domingo del mes natural</li>
+            </ul>
+        </div>
+
+        <h2>⚠️ 2. Validaciones de Turnos Consecutivos</h2>
+        <div class="validation">
+            <strong>Función:</strong> <span class="code">validarTurnosConsecutivos()</span><br>
+            <strong>Validaciones activas:</strong>
+            <ul>
+                <li><span class="code">ASC</span> (Día Asociativo) no se puede asignar en sábados o domingos</li>
+                <li>Tras turno nocturno (<span class="code">N</span> o <span class="code">MN</span>) solo se permite:
+                    <ul>
+                        <li><span class="code">SN</span> (Saliente Nocturno)</li>
+                        <li><span class="code">N</span> o <span class="code">MN</span> (Otro nocturno)</li>
+                        <li><span class="code">D</span> (Descanso)</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <h2>🔔 3. Avisos de Dobletes</h2>
+        <div class="warning">
+            <strong>Aviso automático:</strong> Doblete <span class="code">T</span> (Tarde) → <span class="code">M</span> (Mañana)<br>
+            <strong>Comportamiento:</strong> No bloquea la asignación, pero muestra aviso de que los dobletes solo están permitidos en situaciones justificadas.
+        </div>
+
+        <h2>🏠 4. Descanso Semanal Automático</h2>
+        <div class="rule">
+            <strong>Función:</strong> <span class="code">aplicarDescansoSemanalAutomatico()</span><br>
+            <strong>Regla:</strong> Si todos los días laborables (L-V) de una semana tienen tipos de no disponibilidad, automáticamente asigna descanso a sábado y domingo.<br>
+            <strong>Tipos de no disponibilidad:</strong> <span class="code">AP, ASC, DAS, DF, IND, B, V</span>
+        </div>
+
+        <h2>📊 5. Estadísticas Semanales</h2>
+        <div class="rule">
+            <strong>Nueva funcionalidad:</strong> Desglose por semanas completas<br>
+            <strong>Objetivo:</strong> 37.5 horas por semana<br>
+            <strong>Indicadores:</strong>
+            <ul>
+                <li>✅ Verde: Horas exactas</li>
+                <li>⚠️ Naranja: Exceso de horas</li>
+                <li>❌ Rojo: Déficit de horas</li>
+            </ul>
+        </div>
+
+        <h2>🎨 6. Interfaz Mejorada</h2>
+        <div class="rule">
+            <strong>Calendario:</strong> Muestra período real con fechas de inicio/fin y número de semanas<br>
+            <strong>Días:</strong> Incluye abreviación del mes para mayor claridad<br>
+            <strong>Fines de semana:</strong> Marcados visualmente<br>
+            <strong>Notificaciones:</strong> Soporte para mensajes multilinea con duración variable
+        </div>
+
+        <h2>🔧 Instrucciones de Uso</h2>
+        <div class="rule">
+            <ol>
+                <li>Realiza un <strong>hard refresh</strong> en el navegador (<span class="code">Ctrl + Shift + R</span>)</li>
+                <li>Si persisten problemas, limpia la caché del navegador</li>
+                <li>Alternativamente, usa el modo incógnito para ver los cambios</li>
+                <li>Prueba asignar turnos y observa las validaciones en acción</li>
+                <li>Revisa las estadísticas semanales en la sección de estadísticas</li>
+            </ol>
+        </div>
+
+        <p><strong>✨ ¡La PWA ahora incluye todas las reglas y funcionalidades del proyecto original!</strong></p>
+    </div>
+</body>
+</html> 
